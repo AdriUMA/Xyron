@@ -1,5 +1,7 @@
 <?php
 
+namespace Xyron;
+
 // Cuando se llame a un enum, este devolvera un string (su value es de tipo string)
 enum HttpMethod: string {
     case GET = "GET";

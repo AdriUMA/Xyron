@@ -1,7 +1,6 @@
 <?php
 
-require "./HttpMethod.php";
-require "./HttpNotFoundException.php";
+namespace Xyron;
 
 class Router {
     // Creamos nuestro arrray que contendra todas las rutas en su respectivo protocolo http

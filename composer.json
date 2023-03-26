@@ -1,0 +1,16 @@
+{
+    "name": "benalmatica/xyron-framework",
+    "type": "framework",
+    "autoload": {
+        "psr-4": {
+            "Xyron\\": "src/Xyron"
+        }
+    },
+    "authors": [
+        {
+            "name": "Adrian Tejada",
+            "email": "adriantm@uma.es"
+        }
+    ],
+    "require": {}
+}
