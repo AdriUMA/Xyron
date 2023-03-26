@@ -7,7 +7,6 @@ use Xyron\HttpNotFoundException;
 use Xyron\Router;
 
 $router = new Router();
-$method = HttpMethod::GET;
 
 $router->add(HttpMethod::GET, '/test', function(){
     return "GET OK";
@@ -29,9 +28,8 @@ $router->add(HttpMethod::DELETE, '/test', function(){
     return "DELETE OK";
 });
 
-
 try {
-    $action = $router->resolve();
+    $action = $router->resolve($_SERVER["REQUEST_METHOD"], $_SERVER["REQUEST_URI"]);
     print($action());
 }catch (HttpNotFoundException){
     print("Not found");

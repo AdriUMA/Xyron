@@ -2,6 +2,8 @@
 
 namespace Xyron;
 
+use function PHPUnit\Framework\isNull;
+
 class Router {
     // Creamos nuestro arrray que contendra todas las rutas en su respectivo protocolo http
     protected array $routes = [];
@@ -14,42 +16,32 @@ class Router {
         }
     }
 
-    public function resolve(){
-        $method = $_SERVER["REQUEST_METHOD"];
-        $uri = $_SERVER["REQUEST_URI"];
-
-        $action = $this->routes[$method][$uri] ?? null; // obtenemos la funcion dada la ruta y el metodo
+    /**
+     * Ejecuta la funcion asignada a la ruta y al protocolo correspondiente
+     * @param string $method Metodo ($_SERVER["REQUEST_METHOD"])
+     * @param string $uri Ruta ($_SERVER["REQUEST_URI"])
+     */
+    public function resolve(string $method, string $uri){
+        // obtenemos la funcion dada la ruta y el metodo
+        $action = $this->routes[$method][$uri] ?? null; 
 
         // Si la ruta no existe, excepcion
-        if ($action == null){
+        if (is_null($action)) {
             throw new HttpNotFoundException();
         }
-        
         return $action;
     }
 
     // Setter de rutas (publico)
+    /**
+     * Incluye a una ruta una funcion dado su metodo
+     *
+     * @param HttpMethod $method Metodo
+     * @param string $uri Ruta
+     * @param callable $action Funcion
+     */
     public function add(HttpMethod $method, string $uri, callable $action){
-        switch ($method) {
-            case HttpMethod::GET:
-                $this->get($uri, $action);
-                break;
-            case HttpMethod::POST:
-                $this->post($uri, $action);
-                break;
-            case HttpMethod::PUT:
-                $this->put($uri, $action);
-                break;
-            case HttpMethod::PATCH:
-                $this->patch($uri, $action);
-                break;
-            case HttpMethod::DELETE:
-                $this->delete($uri, $action);
-                break;
-            default:
-                throw new HttpMethodUnknownException();
-                break;
-        }
+        $this->{strtolower($method->value)}($uri,$action);
     }
 
     // Setters de rutas (privados)

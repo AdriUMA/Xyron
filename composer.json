@@ -3,7 +3,15 @@
     "type": "framework",
     "autoload": {
         "psr-4": {
-            "Xyron\\": "src/Xyron"
+            "Xyron\\": ["src/Xyron","src/Xyron/exceptions"]
+        }
+    },
+    "scripts": {
+        "tests": "phpunit --color=always --testdox -v tests/"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Xyron\\Tests\\": "tests"
         }
     },
     "authors": [
@@ -12,5 +20,7 @@
             "email": "adriantm@uma.es"
         }
     ],
-    "require": {}
+    "require-dev": {
+        "phpunit/phpunit": "^10.0"
+    }
 }
