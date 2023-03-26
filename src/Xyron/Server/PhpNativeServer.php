@@ -1,6 +1,8 @@
 <?php
 
-namespace Xyron;
+namespace Xyron\Server;
+
+use Xyron\Http\HttpMethod;
 
 class PhpNativeServer implements Server {
     public function getUri(): string {

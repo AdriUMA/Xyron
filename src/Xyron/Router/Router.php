@@ -1,6 +1,10 @@
 <?php
 
-namespace Xyron;
+namespace Xyron\Router;
+
+use Xyron\Http\HttpMethod;
+use Xyron\Http\HttpNotFoundException;
+use Xyron\Http\Request;
 
 class Router {
     // Creamos nuestro arrray que contendra todas las rutas en su respectivo protocolo http

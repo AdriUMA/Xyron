@@ -3,11 +3,11 @@
 namespace Xyron\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Xyron\HttpMethod;
-use Xyron\HttpNotFoundException;
-use Xyron\Request;
-use Xyron\Router;
-use Xyron\Server;
+use Xyron\Http\HttpMethod;
+use Xyron\Http\HttpNotFoundException;
+use Xyron\Http\Request;
+use Xyron\Router\Router;
+use Xyron\Server\Server;
 
 use function PHPUnit\Framework\assertEquals;
 

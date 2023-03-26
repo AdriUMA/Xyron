@@ -1,6 +1,8 @@
 <?php
 
-namespace Xyron;
+namespace Xyron\Http;
+
+use Xyron\Server\Server;
 
 class Request {
     protected string $uri;

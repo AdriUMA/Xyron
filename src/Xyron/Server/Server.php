@@ -1,6 +1,8 @@
 <?php
 
-namespace Xyron;
+namespace Xyron\Server;
+
+use Xyron\Http\HttpMethod;
 
 interface Server {
     public function getUri(): string;
