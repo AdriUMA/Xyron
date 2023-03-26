@@ -7,6 +7,7 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\TestStatus\Warning;
 use Xyron\HttpMethod;
 use Xyron\HttpNotFoundException;
+use Xyron\Request;
 use Xyron\Router;
 
 use function PHPUnit\Framework\assertEquals;
@@ -18,7 +19,7 @@ class RouterTest extends TestCase {
         $router = new Router();
         $router->add(HttpMethod::GET, $uri, $action);
 
-        $this->assertEquals($action, $router->resolve(HttpMethod::GET->value, $uri));
+        $this->assertEquals($action, $router->resolve(new Request(new MockServer($uri, HttpMethod::GET))));
     }
 
     public function test_resolve_multiple_basic_router_with_callback_action_for_all_http_methods(){
@@ -38,7 +39,7 @@ class RouterTest extends TestCase {
             
         foreach ($routes as $uri => $action) 
             foreach(HttpMethod::cases() as $method)
-                assertEquals($action, $router->resolve($method->value, $uri));
+                assertEquals($action, $router->resolve(new Request(new MockServer($uri, $method))));
     }
 
     public function test_resolve_unknown_routes_for_all_http_methods(){
@@ -57,7 +58,7 @@ class RouterTest extends TestCase {
         foreach ($routes as $uri => $action) 
         foreach(HttpMethod::cases() as $method){
             try{
-                $router->resolve($method->value, $uri);
+                $router->resolve(new Request(new MockServer($uri, $method)));
             }catch(HttpNotFoundException){
                 $exceptions++;
             }

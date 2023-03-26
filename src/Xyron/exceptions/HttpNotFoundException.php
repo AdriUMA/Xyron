@@ -2,8 +2,6 @@
 
 namespace Xyron;
 
-use Exception;
-
-class HttpNotFoundException extends Exception{
+class HttpNotFoundException extends \Exception{
     
 }

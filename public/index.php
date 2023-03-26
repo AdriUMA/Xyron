@@ -4,6 +4,8 @@ require_once "../vendor/autoload.php";
 
 use Xyron\HttpMethod;
 use Xyron\HttpNotFoundException;
+use Xyron\PhpNativeServer;
+use Xyron\Request;
 use Xyron\Router;
 
 $router = new Router();
@@ -29,7 +31,7 @@ $router->add(HttpMethod::DELETE, '/test', function(){
 });
 
 try {
-    $action = $router->resolve($_SERVER["REQUEST_METHOD"], $_SERVER["REQUEST_URI"]);
+    $action = $router->resolve(new Request(new PhpNativeServer()));
     print($action());
 }catch (HttpNotFoundException){
     print("Not found");

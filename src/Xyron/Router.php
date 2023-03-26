@@ -2,8 +2,6 @@
 
 namespace Xyron;
 
-use function PHPUnit\Framework\isNull;
-
 class Router {
     // Creamos nuestro arrray que contendra todas las rutas en su respectivo protocolo http
     protected array $routes = [];
@@ -21,14 +19,13 @@ class Router {
      * @param string $method Metodo ($_SERVER["REQUEST_METHOD"])
      * @param string $uri Ruta ($_SERVER["REQUEST_URI"])
      */
-    public function resolve(string $method, string $uri){
+    public function resolve(Request $request){
         // obtenemos la funcion dada la ruta y el metodo
-        $action = $this->routes[$method][$uri] ?? null; 
+        $action = $this->routes[$request->getMethod()->value][$request->getUri()] ?? null; 
 
         // Si la ruta no existe, excepcion
-        if (is_null($action)) {
-            throw new HttpNotFoundException();
-        }
+        if (is_null($action)) throw new HttpNotFoundException();
+        
         return $action;
     }
 
