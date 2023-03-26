@@ -21,16 +21,19 @@ class Response {
     }
     
     // Setters
-    public function setStatus(int $status) {
+    public function setStatus(int $status): self {
         $this->status = $status;
+        return $this;
     }
 
-    public function setContent(string $content) {
+    public function setContent(string $content): self {
         $this->content = $content;
+        return $this;
     }
 
-    public function setHeader(string $header, string $value) {
+    public function setHeader(string $header, string $value): self {
         $this->headers[strtolower($header)] = $value;
+        return $this;
     }
 
     // Others
@@ -38,6 +41,11 @@ class Response {
         unset($this->headers[strtolower($header)]);
     }
     
+    public function setContentType(ContentType $contentType): self{
+        $this->setHeader("Content-Type", $contentType->value);
+        return $this;
+    }
+
     public function prepareHeader() {
         // PHP envia por defecto cabeceras, si las modificas, pueden ser omitidas.
         header("Content-Type: None");
@@ -49,5 +57,30 @@ class Response {
         }else {
             $this->setHeader("Content-Length", strlen($this->content));
         }
+    }
+
+    // Factory
+    public static function json(array $data): self {
+        return (new Response())
+            ->setContentType(ContentType::Json)
+            ->setContent(json_encode($data));
+    }
+
+    public static function text(string $data): self {
+        return (new Response())
+            ->setContentType(ContentType::Text)
+            ->setContent($data);
+    }
+
+    public static function html(string $data): self {
+        return (new Response())
+            ->setContentType(ContentType::Html)
+            ->setContent($data);
+    }
+
+    public static function redirect(string $url): self {
+        return (new Response())
+            ->setStatus(302)
+            ->setHeader("Location", $url);
     }
 }

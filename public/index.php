@@ -13,9 +13,7 @@ require_once "../vendor/autoload.php";
 $router = new Router();
 
 $router->add(HttpMethod::GET, '/test', function(){
-    $response = new Response();
-    $response->setHeader("Content-Type", "application/json");
-    $response->setContent(json_encode(["message" => "GET OK"]));
+    $response = Response::json(["message" => "GET OK"]);
 
     return $response;
 });
@@ -43,9 +41,6 @@ try {
     $response = $action();
     $server->sendResponse($response);
 }catch (HttpNotFoundException){
-    $response = new Response();
-    $response->setStatus(404);
-    $response->setContent("Not Found");
-    $response->setHeader("Content-Type", "text/plain");
+    $response = Response::redirect("/test");
     $server->sendResponse($response);
 }
