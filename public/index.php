@@ -1,17 +1,23 @@
 <?php
 
+use Xyron\Http\HttpMethod;
+use Xyron\Http\HttpNotFoundException;
+use Xyron\Http\Request;
+use Xyron\Http\Response;
+use Xyron\Router\Router;
+use Xyron\Server\PhpNativeServer;
+
 require_once "../vendor/autoload.php";
 
-use Xyron\HttpMethod;
-use Xyron\HttpNotFoundException;
-use Xyron\PhpNativeServer;
-use Xyron\Request;
-use Xyron\Router;
 
 $router = new Router();
 
 $router->add(HttpMethod::GET, '/test', function(){
-    return "GET OK";
+    $response = new Response();
+    $response->setHeader("Content-Type", "application/json");
+    $response->setContent(json_encode(["message" => "GET OK"]));
+
+    return $response;
 });
 
 $router->add(HttpMethod::POST, '/test', function(){
@@ -30,10 +36,16 @@ $router->add(HttpMethod::DELETE, '/test', function(){
     return "DELETE OK";
 });
 
+$server = new PhpNativeServer();
 try {
-    $action = $router->resolve(new Request(new PhpNativeServer()));
-    print($action());
+    $request = new Request($server);
+    $action = $router->resolve($request);
+    $response = $action();
+    $server->sendResponse($response);
 }catch (HttpNotFoundException){
-    print("Not found");
-    http_response_code(404);
+    $response = new Response();
+    $response->setStatus(404);
+    $response->setContent("Not Found");
+    $response->setHeader("Content-Type", "text/plain");
+    $server->sendResponse($response);
 }

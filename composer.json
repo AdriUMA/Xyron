@@ -3,7 +3,7 @@
     "type": "framework",
     "autoload": {
         "psr-4": {
-            "Xyron\\": "src/Xyron"
+            "Xyron\\": "src"
         }
     },
     "scripts": {

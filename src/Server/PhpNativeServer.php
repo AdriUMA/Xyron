@@ -3,6 +3,7 @@
 namespace Xyron\Server;
 
 use Xyron\Http\HttpMethod;
+use Xyron\Http\Response;
 
 class PhpNativeServer implements Server {
     public function getUri(): string {
@@ -19,5 +20,14 @@ class PhpNativeServer implements Server {
 
     public function getQuery(): array {
         return $_GET;
+    }
+
+    public function sendResponse(Response $response) {
+        $response->prepareHeader();
+        http_response_code($response->getStatus());
+        foreach($response->getHeaders() as $header => $value) {
+            header("$header: $value");
+        }
+        print($response->getContent());
     }
 }

@@ -18,7 +18,7 @@ class Request {
     }
 
     public function getUri(): string {
-        return $this->uri;
+        return $this->uri; // "POST"
     }
 
     public function getMethod(): HttpMethod {
