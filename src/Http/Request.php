@@ -53,7 +53,7 @@ class Request {
     public function getUri(): string {
         return $this->uri; // "POST"
     }
-    
+
     /**
      * Method getter
      *
@@ -61,5 +61,23 @@ class Request {
      */
     public function getMethod(): HttpMethod {
         return $this->method;
+    }
+
+    /**
+     * Data getter
+     *
+     * @return array
+     */
+    public function getData(): array {
+        return $this->data;
+    }
+
+    /**
+     * Query getter
+     *
+     * @return array
+     */
+    public function getQuery(): array {
+        return $this->query;
     }
 }

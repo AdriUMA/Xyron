@@ -52,7 +52,7 @@ class Response {
     public function getHeaders(): array {
         return $this->headers;
     }
-    
+
     // Setters
     /**
      * Status setter
@@ -98,7 +98,7 @@ class Response {
     public function removeHeader(string $header) {
         unset($this->headers[strtolower($header)]);
     }
-    
+
     /**
      * An easier way to set most common content type headers
      *
@@ -120,10 +120,10 @@ class Response {
         header("Content-Type: None");
         header_remove("Content-Type");
 
-        if ($this->content == null){
+        if ($this->content == null) {
             $this->removeHeader("Content-Type");
             $this->removeHeader("Content-Length");
-        }else {
+        } else {
             $this->setHeader("Content-Length", strlen($this->content));
         }
     }

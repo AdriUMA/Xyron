@@ -12,7 +12,7 @@ class ResponseTest extends TestCase {
         $mockServer = $this->getMockBuilder(Server::class)->getMock();
         $mockServer->method("getUri")->willReturn($uri);
         $mockServer->method("getMethod")->willReturn($method);
-    
+
         return new Request($mockServer);
     }
 }

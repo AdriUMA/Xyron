@@ -20,9 +20,8 @@ class Router {
     /**
      * Router Constructor
      */
-    public function __construct()
-    {
-        foreach(HttpMethod::cases() as $method) {
+    public function __construct() {
+        foreach (HttpMethod::cases() as $method) {
             $this->routes[$method->value] = [];
         }
     }
@@ -34,11 +33,13 @@ class Router {
      * @return void|callable
      * @throws HttpNotFoundException If the URI can not be resolved
      */
-    public function resolve(Request $request){
-        $action = $this->routes[$request->getMethod()->value][$request->getUri()] ?? null; 
+    public function resolve(Request $request) {
+        $action = $this->routes[$request->getMethod()->value][$request->getUri()] ?? null;
 
-        if (is_null($action)) throw new HttpNotFoundException();
-        
+        if (is_null($action)) {
+            throw new HttpNotFoundException();
+        }
+
         return $action;
     }
 
@@ -51,7 +52,7 @@ class Router {
      * @return self
      */
     public function add(HttpMethod $method, string $uri, callable $action): self {
-        $this->{strtolower($method->value)}($uri,$action);
+        $this->{strtolower($method->value)}($uri, $action);
         return $this;
     }
 
@@ -109,5 +110,4 @@ class Router {
     private function delete(string $uri, callable $action) {
         $this->routes[HttpMethod::DELETE->value][$uri] = $action;
     }
-
 }

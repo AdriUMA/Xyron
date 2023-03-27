@@ -54,7 +54,9 @@ class PhpNativeServer implements Server {
     public function sendResponse(Response $response) {
         $response->prepareHeader();
         http_response_code($response->getStatus());
-        foreach($response->getHeaders() as $header => $value) header("$header: $value");
+        foreach ($response->getHeaders() as $header => $value) {
+            header("$header: $value");
+        }
         print($response->getContent());
     }
 }

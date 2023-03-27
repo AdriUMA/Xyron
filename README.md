@@ -8,6 +8,10 @@ composer init
 ```sh
 composer require --dev phpunit/phpunit
 ```
+*Auto Formatter*
+```sh
+composer require --dev friendsofphp/php-cs-fixer
+```
 
 ## Run
 *Dev Server*
@@ -20,6 +24,10 @@ composer run tests
 ```
 ```sh
 composer run tests -- --filter <filter>
+```
+*Auto Formatter*
+```sh
+composer run php-cs-fixer
 ```
 
 ## Docs
