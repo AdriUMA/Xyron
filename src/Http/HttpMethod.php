@@ -2,7 +2,9 @@
 
 namespace Xyron\Http;
 
-// Cuando se llame a un enum, este devolvera un string (su value es de tipo string)
+/**
+ * Http Methods.
+ */
 enum HttpMethod: string {
     case GET = "GET";
     case POST = "POST";

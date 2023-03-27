@@ -2,9 +2,20 @@
 
 namespace Xyron\Http;
 
-// Cuando se llame a un enum, este devolvera un string (su value es de tipo string)
+/**
+ * Header Content Type
+ */
 enum ContentType: string {
+    /**
+     * JSON Header
+     */
     case Json = "application/json";
+    /**
+     * Text Header
+     */
     case Text = "text/plain";
+    /**
+     * HTML Header
+     */
     case Html = "text/html";
 }

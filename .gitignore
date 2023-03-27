@@ -1,3 +1,6 @@
 .vscode
 vendor
 composer.lock
+phpDocumentor.phar
+.phpdoc
+docs
