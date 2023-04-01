@@ -4,4 +4,4 @@ composer.lock
 phpDocumentor.phar
 .phpdoc
 docs
-.php-cs-fixer.php
+.php-cs-fixer.cache

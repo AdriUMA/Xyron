@@ -13,7 +13,7 @@ require_once "../vendor/autoload.php";
 $router = new Router();
 
 $router->add(HttpMethod::GET, '/test', function(){
-    $response = Response::json(["message" => "GET OK"]);
+    $response = Response::json(["message" => "Test"]);
 
     return $response;
 });

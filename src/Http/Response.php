@@ -113,9 +113,9 @@ class Response {
     /**
      * Delete the content type if content is null. If content is not null, this function add the content length header
      *
-     * @return void
+     * @return self
      */
-    public function prepareHeader() {
+    public function prepareHeader(): self {
         // PHP envia por defecto cabeceras, si las modificas, pueden ser omitidas.
         header("Content-Type: None");
         header_remove("Content-Type");
@@ -126,6 +126,8 @@ class Response {
         } else {
             $this->setHeader("Content-Length", strlen($this->content));
         }
+
+        return $this;
     }
 
     // Factory
@@ -138,7 +140,8 @@ class Response {
     public static function json(array $data): self {
         return (new Response())
             ->setContentType(ContentType::Json)
-            ->setContent(json_encode($data));
+            ->setContent(json_encode($data))
+            ->prepareHeader();
     }
 
     /**
@@ -150,7 +153,8 @@ class Response {
     public static function text(string $data): self {
         return (new Response())
             ->setContentType(ContentType::Text)
-            ->setContent($data);
+            ->setContent($data)
+            ->prepareHeader();
     }
 
     /**
@@ -162,7 +166,8 @@ class Response {
     public static function html(string $data): self {
         return (new Response())
             ->setContentType(ContentType::Html)
-            ->setContent($data);
+            ->setContent($data)
+            ->prepareHeader();
     }
 
     /**
